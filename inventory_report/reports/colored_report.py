@@ -1,5 +1,5 @@
 import re
-## oi
+
 
 class ColoredReport:
     def __init__(self, report_type):
