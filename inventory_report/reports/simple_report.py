@@ -3,7 +3,6 @@ from collections import Counter
 
 
 class SimpleReport:
-    @staticmethod
     def generate(list):
         update_day = date.today()
         date_validity = []
