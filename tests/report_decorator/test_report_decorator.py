@@ -42,6 +42,7 @@ products = [
 ]
 
 def test_decorar_relatorio():
+
     simple_colored_report = ColoredReport(SimpleReport)
     result_simple = simple_colored_report.generate(products)
     # result_simple = ColoredReport(SimpleReport)
@@ -53,10 +54,11 @@ def test_decorar_relatorio():
     assert '\033[36m' in result_simple
 
     assert '\033[32m' in result_simple
-    
+
     assert '\033[31m' in result_simple
 
     assert '\033[36m' in result_complete
 
     assert '\033[32m' in result_complete
+
     assert '\033[31m' in result_complete
