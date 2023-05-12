@@ -41,8 +41,8 @@ products = [
     }
 ]
 
-def test_decorar_relatorio():
 
+def test_decorar_relatorio():
     simple_colored_report = ColoredReport(SimpleReport)
     result_simple = simple_colored_report.generate(products)
     # result_simple = ColoredReport(SimpleReport)
