@@ -2,50 +2,73 @@ from inventory_report.reports.colored_report import ColoredReport
 from inventory_report.reports.simple_report import SimpleReport
 from inventory_report.reports.complete_report import CompleteReport
 
-RED, GREEN, BLUE = ("\033[31m", "\033[32m", '\033[36m')
-
-mock_products_list = [
-    {
-        "id": 1,
-        "nome_do_produto": "Product_01",
-        "nome_da_empresa": "Company_01",
-        "data_de_fabricacao": "10/06/1996",
-        "data_de_validade": "10/06/2023",
-        "numero_de_serie": "1234",
-        "instrucoes_de_armazenamento": "Conservar em local seco"
-    },
-    {
-        "id": 2,
-        "nome_do_produto": "Product_02",
-        "nome_da_empresa": "Company_02",
-        "data_de_fabricacao": "10/06/1995",
-        "data_de_validade": "10/06/2022",
-        "numero_de_serie": "1234",
-        "instrucoes_de_armazenamento": "Conservar em local molhado"
-    }
-]
-
 
 def test_decorar_relatorio():
-    test_simple_colored_report = ColoredReport(SimpleReport)
-    test_complete_colored_report = ColoredReport(CompleteReport)
+    products = [
+        {
+            "id": 1,
+            "nome": "Product 1",
+            "data_de_validade": "10/06/1996",
+            "data_de_fabricacao": "10/06/1998",
+            "nome_da_empresa": "Company 1",
+        },
+        {
+            "id": 2,
+            "nome": "Product 2",
+            "data_de_validade": "10/06/2020",
+            "data_de_fabricacao": "10/06/2023",
+            "nome_da_empresa": "Company 2",
+        },
+        {
+            "id": 3,
+            "nome": "Product 3",
+            "data_de_validade": "10/06/1999",
+            "data_de_fabricacao": "10/06/2000",
+            "nome_da_empresa": "Company 1",
+        },
+        {
+            "id": 4,
+            "nome": "Product 4",
+            "data_de_validade": "10/06/1995",
+            "data_de_fabricacao": "10/06/2001",
+            "nome_da_empresa": "Company 2",
+        },
+    ]
+    simple_colored_report = ColoredReport(SimpleReport)
+    result_simple = simple_colored_report.generate(products)
 
-    assert {BLUE} in test_simple_colored_report.generate(
-        mock_products_list
+    complete_colored_report = ColoredReport(CompleteReport)
+    result_complete = complete_colored_report.generate(products)
+
+    assert (
+        "\033[32mData de fabricação mais antiga:\033[0m "
+        "\033[36m2021-01-01\033[0m"
+        in result_simple
     )
-    assert {GREEN} in test_simple_colored_report.generate(
-        mock_products_list
-    )
-    assert {RED} in test_simple_colored_report.generate(
-        mock_products_list
+    assert (
+        "\033[32mData de validade mais próxima:\033[0m "
+        "\033[36m2023-06-14\033[0m"
+        in result_simple
     )
 
-    assert {BLUE} in test_complete_colored_report.generate(
-        mock_products_list
+    assert (
+        "\033[32mEmpresa com mais produtos:\033[0m "
+        "\033[31mEmpresa B\033[0m" in result_simple
     )
-    assert {GREEN} in test_complete_colored_report.generate(
-        mock_products_list
+
+    assert (
+        "\033[32mData de fabricação mais antiga:\033[0m "
+        "\033[36m2021-01-01\033[0m"
+        in result_complete
     )
-    assert {RED} in test_complete_colored_report.generate(
-        mock_products_list
+    assert (
+        "\033[32mData de validade mais próxima:\033[0m "
+        "\033[36m2023-06-14\033[0m"
+        in result_complete
     )
+
+    assert (
+        "\033[32mEmpresa com mais produtos:\033[0m "
+        "\033[31mEmpresa B\033[0m" in result_complete
+    )
+    
