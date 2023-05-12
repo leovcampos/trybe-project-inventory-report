@@ -71,4 +71,3 @@ def test_decorar_relatorio():
         "\033[32mEmpresa com mais produtos:\033[0m "
         "\033[31mEmpresa B\033[0m" in result_complete
     )
-    
