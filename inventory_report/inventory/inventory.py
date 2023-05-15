@@ -15,7 +15,7 @@ class Inventory:
         with open(path, encoding="utf8") as file:
             return json.load(file)
 
-    @staticmethod    
+    @staticmethod
     def CsvImporter(path):
         path_type = path.split(".")[-1]
         if path_type != "csv":
@@ -23,7 +23,7 @@ class Inventory:
         with open(path, newline="", encoding="utf8") as file:
             reader = csv.DictReader(file)
             return [row for row in reader]
-        
+
     @staticmethod
     def XmlImporter(path):
         path_type = path.split(".")[-1]
